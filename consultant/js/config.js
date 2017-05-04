@@ -15,7 +15,7 @@ var aboutus = {
 	"superiority": {
 			"aspect": "Professional Design",
 			"intro": "<p>Aenean commodo ligula eget dolor. Aenean massa. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.</p><p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet. Dolore magna aliquam erat volutpat.</p>",
-			"metrics": [
+			"skills": [
 				{
 					"name": "HTML5 & CSS3",
 					"percent": 100,
