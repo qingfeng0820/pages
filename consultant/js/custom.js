@@ -14,10 +14,14 @@ $('.iso-box-section a').nivoLightbox({
 
 // ISOTOPE FILTER
 jQuery(document).ready(function($){
-	// handlebars
+	// handlebars helps
 	Handlebars.registerHelper('value', function (value, safeValue) {
 	    var out = value || safeValue;
 	    return out;
+	});
+	Handlebars.registerHelper('delay', function (unit, count) {
+	    var delay = unit * (count % 3);
+	    return delay;
 	});
 
 	var configFile = "js/config";
@@ -31,6 +35,9 @@ jQuery(document).ready(function($){
 		rendTemplate("menu-template");
 		rendTemplate("home-template");
 		rendTemplate("aboutus-template");
+		rendTemplate("team-template");
+		rendTemplate("price-template");
+		rendTemplate("contact-template");
 	});
 
 	if ( $('.iso-box-wrapper').length > 0 ) { 

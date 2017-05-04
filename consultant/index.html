@@ -152,35 +152,24 @@
 					{{{aboutus.intro}}}
 				</div>
 				<div class="col-md-1 col-sm-1"></div>
+				{{#if aboutus.superiority}}
 				<div class="col-md-12 col-sm-12 about-bottom-des wow bounceIn">
 					<div class="col-md-6 col-sm-12">
-						<h2 class="tm-about-header">Professional Design</h2>
-						<p>Aenean commodo ligula eget dolor. Aenean massa. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.</p>
-						<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet. Dolore magna aliquam erat volutpat.</p>
+						<h2 class="tm-about-header">{{value aboutus.superiority.aspect "Professional Design"}}</h2>
+						{{{aboutus.superiority.intro}}}
 					</div>
 					<div class="col-md-6 col-sm-12 about-skills">
-						<strong>HTML5 &AMP; CSS3</strong>
-							<span class="pull-right">100%</span>
-								<div class="progress">
-									<div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
+						{{#each aboutus.superiority.metrics}}
+							<strong>{{name}}</strong>
+							<span class="pull-right">{{percent}}%</span>
+							<div class="progress">
+								<div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: {{percent}}%;">
 								</div>
-						<strong>BOOTSTRAP</strong>
-							<span class="pull-right">90%</span>
-								<div class="progress">
-									<div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: 90%;"></div>
-								</div>
-						<strong>UX DESIGN</strong>
-							<span class="pull-right">85%</span>
-								<div class="progress">
-									<div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" style="width: 85%;"></div>
-								</div>
-						<strong>WORDPRESS</strong>
-							<span class="pull-right">75%</span>
-								<div class="progress">
-									<div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%;"></div>
-								</div>
+							</div>
+						{{/each}}
 					</div>
 				</div>
+				{{/if}}
 			</div>
 		</div>
 	{{/if}}
@@ -224,65 +213,37 @@
 
 <!-- home section -->
 <section id="team" class="tm-team">
+	<script id="team-template" type="text/x-handlebars-template">
+	{{#if team}}
 	<div class="team-title">
-		<h2>Meet the crew</h2>
+		<h2>{{value team.title "Meet the crew"}}</h2>
 	</div>
 	<div class="container">
 		<div class="row">
 			<div class="container-fluid">
-			<div class="col-md-2 col-sm-1"></div>
-			<div class="col-md-6 col-sm-10">
-				<div class="media wow fadeInUp" data-wow-delay="0.3s">
-					<div class="media-object pull-left">
-						<img src="images/team1.jpg" class="img-responsive" alt="team">
-					</div>
-					<div class="media-body border-right">
-						<h3 class="media-heading">Jonny Doe</h3>
-						<h4 class="tm-team-member-heading-2">I am CEO &amp; Founder</h4>
-						<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet.</p>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-6 col-sm-10">
-				<div class="media wow fadeInUp" data-wow-delay="0.6s">
-					<div class="media-object pull-left">
-						<img src="images/team2.jpg" class="img-responsive" alt="team">
-					</div>
-					<div class="media-body">
-						<h3 class="media-heading">Jonny Ive</h3>
-						<h4 class="tm-team-member-heading-2">I am Director</h4>
-						<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet.</p>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-6 col-sm-10">
-				<div class="media wow fadeInUp" data-wow-delay="0.9s">
-					<div class="media-object pull-left">
-						<img src="images/team3.jpg" class="img-responsive" alt="team">
-					</div>
-					<div class="media-body border-right">
-						<h3 class="media-heading">Jonny Mark</h3>
-						<h4 class="tm-team-member-heading-2">I am UX Designer</h4>
-						<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet.</p>
-					</div>
-				</div>
-			</div>
 			<div class="col-md-2 col-sm-2"></div>
-			<div class="col-md-6 col-sm-10">
-				<div class="media wow fadeInUp" data-wow-delay="1s">
-					<div class="media-object pull-left">
-						<img src="images/team4.jpg" class="img-responsive" alt="team">
-					</div>
-					<div class="media-body border-right">
-						<h3 class="media-heading">Jonny Lady</h3>
-						<h4 class="tm-team-member-heading-2">I am Marketing</h4>
-						<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet.</p>
+			{{#each team.members}}
+				{{#if @last}}
+					<div class="col-md-2 col-sm-2"></div>
+				{{/if}}
+				<div class="col-md-6 col-sm-10">
+					<div class="media wow fadeInUp" data-wow-delay="0.3s">
+						<div class="media-object pull-left">
+							<img src="{{pic}}" class="img-responsive" alt="team">
+						</div>
+						<div class="media-body border-right">
+							<h3 class="media-heading">{{name}}</h3>
+							<h4 class="tm-team-member-heading-2">{{position}}</h4>
+							{{{intro}}}
+						</div>
 					</div>
 				</div>
-			</div>
+			{{/each}}
 		</div>
 		</div>
 	</div>
+	{{/if}}
+	</script>
 </section>
 
 <!-- portfolio section -->
@@ -348,89 +309,74 @@
 
 <!-- price section -->
 <section id="price" class="tm-price">
+	<script id="price-template" type="text/x-handlebars-template">
+	{{#if price}}
 	<div class="container">
 		<div class="col-md-12 col-sm-12">
-			<h2 class="tm-price-section-heading">Our Pricing</h2>
+			<h2 class="tm-price-section-heading">{{value price.title "Our Pricing"}}</h2>
 		</div>
-		<div class="col-md-4 col-sm-6">
-			<div class="plan wow bounceIn" data-wow-delay="0.3s">
-				<h3 class="plan_title">BASIC PLAN</h3>
+		{{#each price.solutions}}
+			<div class="col-md-4 col-sm-6">
+			<div class="plan wow bounceIn" data-wow-delay="{{delay 0.3 @index}}s">
+				<h3 class="plan_title">{{name}}</h3>
 					<ul>
-						<li>$20 per month</li>
-						<li>100 GB Storage</li>
-						<li>20 Basic Themes</li>
-						<li>2-day Response</li>
+						{{#each items}}
+							<li>{{this}}</li>
+						{{/each}}
 					</ul>
-					<button class="btn btn-warning">SIGN UP</button>
+					<!-- <button class="btn btn-warning">SIGN UP</button> -->
 			</div>
 		</div>
-		<div class="col-md-4 col-sm-6">
-			<div class="plan wow bounceIn" data-wow-delay="0.6s">
-				<h3 class="plan_title">BUSINESS PLAN</h3>
-					<ul>
-						<li>$40 per month</li>
-						<li>300 GB Storage</li>
-						<li>50 Business Themes</li>
-						<li>12-hr response</li>
-					</ul>
-					<button class="btn btn-warning">SIGN UP</button>
-			</div>
-		</div>
-		<div class="col-md-4 col-sm-6">
-			<div class="plan wow bounceIn" data-wow-delay="0.9s">
-				<h3 class="plan_title">Premium PLAN</h3>
-					<ul>
-						<li>$80 per month</li>
-						<li>500 GB Storage</li>
-						<li>100 Premium Themes</li>
-						<li>15-minute response</li>
-					</ul>
-					<button class="btn btn-warning">SIGN UP</button>
-			</div>
-		</div>
+		{{/each}}
 	</div>
+	{{/if}}
+	</script>
 </section>
 
 <!-- contact section -->
 <section id="contact" class="tm-contact">
+	<script id="contact-template" type="text/x-handlebars-template">
+	{{#if contact}}
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12 col-sm-12">
-				<h2>Send Email</h2>
+				<h2>{{value contact.title "Send Email"}}</h2>
 			</div>
 			<div class="col-md-4 col-sm-5 address wow fadeInUp" data-wow-delay="0.6s">
 				<div>
-					<h3 class="tm-contact-h3">Address</h3>
-					<p>123, Rama IX, Bangkok 12340, Thailand.</p>
+					<h3 class="tm-contact-h3">{{value contact.address.name "Address"}}</h3>
+					<p>{{value contact.address.value "123, Rama IX, Bangkok 12340, Thailand."}}</p>
 				</div>
 				<div>
-					<h3 class="tm-contact-h3">Email</h3>
-					<p><a href="mailto:hello@company.com" class="tm-contact-link">hello@company.com</a></p>
+					<h3 class="tm-contact-h3">{{value contact.email.name "Email"}}</h3>
+					<p><a href='mailto:{{value contact.email.value "hello@company.com"}}' class="tm-contact-link">{{value contact.email.value "hello@company.com"}}</a></p>
 				</div>
 				<div>
 					<h3 class="tm-contact-h3">Phone</h3>
-					<p><a href="tel:0102003400" class="tm-contact-link">010 200 3400</a> | <a href="tel:0807006500" class="tm-contact-link">080 700 6500</a></p>
+					<p><a href="{{#if contact.phone.item1.value}}tel:{{contact.phone.item1.value}}{{else}}javascript:void(0){{/if}}" class="tm-contact-link">{{value contact.phone.item1.label "010 200 3400"}}</a> | <a href="{{#if contact.phone.item2.value}}tel:{{contact.phone.item2.value}}{{else}}javascript:void(0){{/if}}" class="tm-contact-link">{{value contact.phone.item2.label "080 700 6500"}}</a></p>
 				</div>		
 			</div>	
 			<div class="col-md-8 col-sm-7 contact-form wow fadeInRight" data-wow-delay="0.9s">
 				<form action="#" method="post" role="form">
 					<div class="col-md-6 col-sm-6">
-						<input class="form-control" type="text" placeholder="Your Name">
+						<input class="form-control" type="text" placeholder='{{value contact.email.form.name "Your Name"}}'>
 					</div>
 					<div class="col-md-6 col-sm-6">
-						<input class="form-control" type="email" placeholder="Your Email">
+						<input class="form-control" type="email" placeholder='{{value contact.email.form.email "Your Email"}}'>
 					</div>
 					<div class="col-md-12 col-sm-12">
-						<input class="form-control" type="text" placeholder="Your Subject">
-						<textarea class="form-control" placeholder="Your Message" rows="6"></textarea>
+						<input class="form-control" type="text" placeholder='{{value contact.email.form.subject "Your Subject"}}'>
+						<textarea class="form-control" placeholder='{{value contact.email.form.message "Your Message"}}' rows="6"></textarea>
 					</div>
 					<div class="col-md-offset-6 col-md-6 col-sm-12">
-						<input class="form-control" type="submit" value="SHOOT MESSAGE">
+						<input class="form-control" type="submit" value='{{value contact.email.form.submitBtn "SHOOT MESSAGE"}}'>
 					</div>
 				</form>
 			</div>
 		</div>
 	</div>
+	{{/if}}
+	</script>
 </section>
 
 <!-- footer section -->
