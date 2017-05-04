@@ -14,6 +14,24 @@ $('.iso-box-section a').nivoLightbox({
 
 // ISOTOPE FILTER
 jQuery(document).ready(function($){
+	// handlebars
+	Handlebars.registerHelper('value', function (value, safeValue) {
+	    var out = value || safeValue;
+	    return out;
+	});
+
+	var configFile = "js/config";
+	var il8n = "en";
+	if (il8n != "en") {
+		configFile += il8n;
+	}
+	configFile += ".js";
+	addScript(configFile, function() {
+		changeTitle();
+		rendTemplate("menu-template");
+		rendTemplate("home-template");
+		rendTemplate("aboutus-template");
+	});
 
 	if ( $('.iso-box-wrapper').length > 0 ) { 
 
@@ -64,6 +82,30 @@ jQuery(document).ready(function($){
 	}
 
 });
+
+// functions
+function addScript(scriptPath, callback) {
+	var script = document.createElement("script");
+	script.setAttribute("type", "text/javascript");
+	script.setAttribute("src", scriptPath);
+	if (callback && typeof(callback) == "function") {
+		script.onload = callback;
+	}
+	document.body.appendChild(script);
+}
+
+function changeTitle() {
+	if (config.home.title) {
+		document.title = config.home.title;
+	}
+}
+
+function rendTemplate(template) {
+	var $templateItem = $("#" + template);
+	var source  = $templateItem.html();
+	var template = Handlebars.compile(source);
+	$templateItem.parent().html(template(config));
+}
 
 
 // MAIN NAVIGATION
