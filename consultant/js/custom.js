@@ -32,6 +32,8 @@ jQuery(document).ready(function($){
 	configFile += ".js";
 	addScript(configFile, function() {
 		changeTitle();
+		navInit();
+		imageloadInit();
 		rendTemplate("menu-template");
 		rendTemplate("home-template");
 		rendTemplate("aboutus-template");
@@ -40,52 +42,95 @@ jQuery(document).ready(function($){
 		rendTemplate("contact-template");
 	});
 
-	if ( $('.iso-box-wrapper').length > 0 ) { 
+	function navInit() {
+			// MAIN NAVIGATION
+		 $('.main-navigation').onePageNav({
+		        scrollThreshold: 0.2, // Adjust if Navigation highlights too early or too late
+		        scrollOffset: 75, //Height of Navigation Bar
+		        filter: ':not(.external)',
+		        changeHash: true
+		    }); 
 
-	    var $container 	= $('.iso-box-wrapper'), 
-	    	$imgs 		= $('.iso-box img');
+		    /* NAVIGATION VISIBLE ON SCROLL */
+		    mainNav();
+		    $(window).scroll(function () {
+		        mainNav();
+		    });
 
-	    $container.imagesLoaded(function () {
+		    function mainNav() {
+		        var top = (document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop;
+		        if (top > 40) $('.sticky-navigation').stop().animate({
+		            "opacity": '1',
+		            "top": '0'
+		        });
+		        else $('.sticky-navigation').stop().animate({
+		            "opacity": '0',
+		            "top": '-75'
+		        });
+		    }
 
-	    	$container.isotope({
-				layoutMode: 'fitRows',
-				itemSelector: '.iso-box'
-	    	});
 
-	    	$imgs.load(function(){
-	    		$container.isotope('reLayout');
-	    	})
+		// HIDE MOBILE MENU AFTER CLIKING ON A LINK
+		    $('.navbar-collapse, a').click(function(){
+		        $(".navbar-collapse").collapse('hide');
+		    });
+	}
 
-	    });
 
-	    //filter items on button click
+	function changeTitle() {
+		if (config.home.title) {
+			document.title = config.home.title;
+		}
+	}
 
-	    $('.filter-wrapper li a').click(function(){
+    function imageloadInit() {
+		if ( $('.iso-box-wrapper').length > 0 ) { 
 
-	        var $this = $(this), filterValue = $this.attr('data-filter');
+		    var $container 	= $('.iso-box-wrapper'), 
+		    	$imgs 		= $('.iso-box img');
 
-			$container.isotope({ 
-				filter: filterValue,
-				animationOptions: { 
-				    duration: 750, 
-				    easing: 'linear', 
-				    queue: false, 
-				}              	 
-			});	            
+		    $container.imagesLoaded(function () {
 
-			// don't proceed if already selected 
+		    	$container.isotope({
+					layoutMode: 'fitRows',
+					itemSelector: '.iso-box'
+		    	});
 
-			if ( $this.hasClass('selected') ) { 
-				return false; 
-			}
+		    	$imgs.load(function(){
+		    		$container.isotope('reLayout');
+		    	})
 
-			var filter_wrapper = $this.closest('.filter-wrapper');
-			filter_wrapper.find('.selected').removeClass('selected');
-			$this.addClass('selected');
+		    });
 
-	      return false;
-	    }); 
+		    //filter items on button click
 
+		    $('.filter-wrapper li a').click(function(){
+
+		        var $this = $(this), filterValue = $this.attr('data-filter');
+
+				// don't proceed if already selected 
+
+				if ( $this.hasClass('selected') ) { 
+					return false; 
+				}
+
+				$container.isotope({ 
+					filter: filterValue,
+					animationOptions: { 
+					    duration: 750, 
+					    easing: 'linear', 
+					    queue: false, 
+					}              	 
+				});	            
+
+				var filter_wrapper = $this.closest('.filter-wrapper');
+				filter_wrapper.find('.selected').removeClass('selected');
+				$this.addClass('selected');
+
+		        return false;
+		    }); 
+
+		}
 	}
 
 });
@@ -101,52 +146,12 @@ function addScript(scriptPath, callback) {
 	document.body.appendChild(script);
 }
 
-function changeTitle() {
-	if (config.home.title) {
-		document.title = config.home.title;
-	}
-}
-
 function rendTemplate(template) {
 	var $templateItem = $("#" + template);
 	var source  = $templateItem.html();
 	var template = Handlebars.compile(source);
 	$templateItem.parent().html(template(config));
 }
-
-
-// MAIN NAVIGATION
- $('.main-navigation').onePageNav({
-        scrollThreshold: 0.2, // Adjust if Navigation highlights too early or too late
-        scrollOffset: 75, //Height of Navigation Bar
-        filter: ':not(.external)',
-        changeHash: true
-    }); 
-
-    /* NAVIGATION VISIBLE ON SCROLL */
-    mainNav();
-    $(window).scroll(function () {
-        mainNav();
-    });
-
-    function mainNav() {
-        var top = (document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop;
-        if (top > 40) $('.sticky-navigation').stop().animate({
-            "opacity": '1',
-            "top": '0'
-        });
-        else $('.sticky-navigation').stop().animate({
-            "opacity": '0',
-            "top": '-75'
-        });
-    }
-
-
-// HIDE MOBILE MENU AFTER CLIKING ON A LINK
-    $('.navbar-collapse a').click(function(){
-        $(".navbar-collapse").collapse('hide');
-    });
-
 
 // WOW ANIMATED 
 $(function()
