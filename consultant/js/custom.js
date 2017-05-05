@@ -19,8 +19,11 @@ jQuery(document).ready(function($){
 	    var out = value || safeValue;
 	    return out;
 	});
-	Handlebars.registerHelper('delay', function (unit, count) {
-	    var delay = unit * (count % 3);
+	Handlebars.registerHelper('delay', function (unit, index, base) {
+	    var delay = unit * (index % 3 + 1);
+	    if (base > 0) {
+	    	delay += base;
+	    }
 	    return delay;
 	});
 
@@ -32,14 +35,15 @@ jQuery(document).ready(function($){
 	configFile += ".js";
 	addScript(configFile, function() {
 		changeTitle();
-		navInit();
-		imageloadInit();
-		rendTemplate("menu-template");
 		rendTemplate("home-template");
+		rendTemplate("brief-template");
+		rendTemplate("menu-template");
 		rendTemplate("aboutus-template");
 		rendTemplate("team-template");
 		rendTemplate("price-template");
 		rendTemplate("contact-template");
+		navInit();
+		imageloadInit();
 	});
 
 	function navInit() {

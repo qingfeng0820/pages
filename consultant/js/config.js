@@ -4,7 +4,21 @@ var home = {
 		"watchword_title": "ALPHA",
 		"watchword_1": "Make Your Own",
 		"watchword_2": "Business Website",
-		"startbtn": "GET STARTED"
+		"startbtn": "GET STARTED",
+		"brief": {
+			"item1": {
+				"label": "Wow <span class='green'>you</span>",
+				"intro": "<p>You can get personalized  professional service from us, to meet your business requirement.</p>",
+			},
+			"item2": {
+				"label": "Know <span class='green'>us</span>",
+				"intro": "<p>Our team is professional and full of passion. Our key members are showing themselves.</p>",
+			},
+			"item3": {
+				"label": "<span class='green'>Glory</span>",
+				"intro": "<p>Our customers are very nice，they helped us to created the glory belongs to us.</p>",
+			},
+		}
 	}
 
 var aboutus = {
