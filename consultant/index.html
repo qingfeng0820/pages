@@ -261,12 +261,14 @@
 				</div>
 				<!-- ISO section -->
 				<div class="iso-section">
-					<ul class="filter-wrapper clearfix">
-                   		 <li><a href="#" data-filter="*" class="selected opc-main-bg">{{value portfolio.all "All"}}</a></li>
-                   		 {{#each portfolio.category}}
-                   		 	<li><a href="javascript:void(0)" class="opc-main-bg" data-filter=".{{name}}">{{label}}</a></li>
-                   		 {{/each}}
-               		</ul>
+					{{#if portfolio.category}}
+						<ul class="filter-wrapper clearfix">
+	                   		 <li><a href="#" data-filter="*" class="selected opc-main-bg">{{value portfolio.all "All"}}</a></li>
+	                   		 {{#each portfolio.category}}
+	                   		 	<li><a href="javascript:void(0)" class="opc-main-bg" data-filter=".{{name}}">{{label}}</a></li>
+	                   		 {{/each}}
+	               		</ul>
+               		{{/if}}
                		<div class="iso-box-section wow fadeIn" data-wow-delay="0.9s">
                			<div class="iso-box-wrapper col4-iso-box">
                				  {{#each portfolio.items}}
