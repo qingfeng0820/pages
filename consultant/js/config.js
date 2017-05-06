@@ -52,6 +52,27 @@ var aboutus = {
 
 var service = {
 		"menu": "SERVICE",
+		"title": "Our Function",
+		"items": [
+			{
+				"name": "CORPORATE STRATEGY",
+				"note": "1 hr",
+				"intro": "<p>Describe your service here. What makes it great? Use short catchy text to tell people what you offer, and the benefits they will receive. A great description gets readers in the mood, and makes them more likely to go ahead and book.</p>",
+				"pic": "images/service1.jpg",
+			},
+			{
+				"name": "OPERATIONAL CONSULTING	",
+				"note": "1 hr",
+				"intro": "<p>Describe your service here. What makes it great? Use short catchy text to tell people what you offer, and the benefits they will receive. A great description gets readers in the mood, and makes them more likely to go ahead and book.</p>",
+				"pic": "images/service2.jpg",
+			},
+			{
+				"name": "PROJECT MANAGEMENT",
+				"note": "1 hr",
+				"intro": "<p>Describe your service here. What makes it great? Use short catchy text to tell people what you offer, and the benefits they will receive. A great description gets readers in the mood, and makes them more likely to go ahead and book.</p>",
+				"pic": "images/service3.jpg",
+			},
+		]
 	}
 
 var team = {
@@ -87,6 +108,82 @@ var team = {
 
 var portfolio = {
 		"menu": "PORTFOLIO",
+		"title": "Our Showcase",
+		"all": "All",
+		"category": [
+			{
+				"name": "html",
+				"label": "HTML"
+			},
+			{
+				"name": "photoshop",
+				"label": "Photoshop"
+			},
+			{
+				"name": "wordpress",
+				"label": "Wordpress"
+			},
+			{
+				"name": "mobile",
+				"label": "Mobile"
+			},
+		],
+		"items": [
+			{
+				"name": "portfolio-img1",
+				"pic": "images/portfolio-img1.jpg",
+				"intro": "",
+				"category": ["photoshop", "wordpress"],
+			},
+			{
+				"name": "portfolio-img2",
+				"pic": "images/portfolio-img2.jpg",
+				"intro": "",
+				"category": ["mobile", "html", "wordpress"],
+			},
+			{
+				"name": "portfolio-img3",
+				"pic": "images/portfolio-img3.jpg",
+				"intro": "",
+				"category": ["wordpress"],
+			},
+			{
+				"name": "portfolio-img4",
+				"pic": "images/portfolio-img4.jpg",
+				"intro": "",
+				"category": ["mobile", "html", "wordpress"],
+			},
+			{
+				"name": "portfolio-img5",
+				"pic": "images/portfolio-img5.jpg",
+				"intro": "",
+				"category": ["mobile", "wordpress"],
+			},
+			{
+				"name": "portfolio-img6",
+				"pic": "images/portfolio-img6.jpg",
+				"intro": "",
+				"category": ["mobile", "html", "wordpress"],
+			},
+			{
+				"name": "portfolio-img7",
+				"pic": "images/portfolio-img7.jpg",
+				"intro": "",
+				"category": ["photoshop", "html"],
+			},
+			{
+				"name": "portfolio-img8",
+				"pic": "images/portfolio-img8.jpg",
+				"intro": "",
+				"category": ["mobile", "photoshop"],
+			},
+			{
+				"name": "portfolio-img9",
+				"pic": "images/portfolio-img9.jpg",
+				"intro": "",
+				"category": ["html", "photoshop"],
+			},
+		]
 	}
 
 var price = {
@@ -119,6 +216,37 @@ var price = {
 					"100 Business Themes",
 					"15-minute response"
 				]
+			},
+		]
+	}
+
+var client = {
+		"menu": "CLIENT",
+		"title": "Cooperator",
+		"items": [
+			{
+				"name": "KENO",
+				"logo": "images/keno.png"
+			},
+			{
+				"name": "AELEK",
+				"logo": "images/aelek.png"
+			},
+			{
+				"name": "LENDO",
+				"logo": "images/lendo.png"
+			},
+			{
+				"name": "DMC",
+				"logo": "images/dmc.png"
+			},
+			{
+				"name": "VAKATA",
+				"logo": "images/vakata.png"
+			},			
+			{
+				"name": "ATHOS",
+				"logo": "images/athos.png"
 			},
 		]
 	}
@@ -161,6 +289,7 @@ var config = {
 	"team": team, 
 	"portfolio": portfolio, 
 	"price": price, 
+	"client": client,
 	"contact": contact
 }
 

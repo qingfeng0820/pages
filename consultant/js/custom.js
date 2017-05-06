@@ -7,10 +7,6 @@
 	jQuery(".preloader").delay(1000).fadeOut("slow");
 });
 
-// NIVO LIGHTBOX
-$('.iso-box-section a').nivoLightbox({
-        effect: 'fadeScale',
-    });
 
 // ISOTOPE FILTER
 jQuery(document).ready(function($){
@@ -20,7 +16,7 @@ jQuery(document).ready(function($){
 	    return out;
 	});
 	Handlebars.registerHelper('delay', function (unit, index, base) {
-	    var delay = unit * (index % 3 + 1);
+	    var delay = unit * (index + 1);
 	    if (base > 0) {
 	    	delay += base;
 	    }
@@ -39,10 +35,14 @@ jQuery(document).ready(function($){
 		rendTemplate("brief-template");
 		rendTemplate("menu-template");
 		rendTemplate("aboutus-template");
+		rendTemplate("service-template");
 		rendTemplate("team-template");
+		rendTemplate("portfolio-template");
 		rendTemplate("price-template");
+		rendTemplate("client-template");
 		rendTemplate("contact-template");
 		navInit();
+		serviceInit();
 		imageloadInit();
 	});
 
@@ -87,7 +87,39 @@ jQuery(document).ready(function($){
 		}
 	}
 
+	function serviceInit() {
+		var serviceBar = $('.service-bar');
+		serviceBar.mouseenter(function() {
+			var $this = $(this);
+			$this.find('img').slideUp("fast");
+			$this.find('.service-bar-detail').fadeIn("slow");
+			$this.find('.fa-chevron-down').hide("fast");
+		});
+
+		serviceBar.mouseleave(function(e) {
+			var $this = $(this);
+		    var x=e.pageX;
+		    var y=e.pageY;
+			var divOffset = $this.offset();
+			var divx1 = divOffset.left;
+		    var divy1 = divOffset.top;
+		    var divx2 = divx1 + $this.width();
+		    var divy2 = divy1 + $this.height();
+		    if( x < divx1 || x > divx2 || y < divy1 || y > divy2) {
+		    	$this.find('img').slideDown("fast");
+				$this.find('.service-bar-detail').fadeOut("fast");
+				$this.find('.fa-chevron-down').show("fast");
+		    }
+		});
+	}
+
     function imageloadInit() {
+
+		// NIVO LIGHTBOX
+		$('.iso-box-section a').nivoLightbox({
+		        effect: 'fadeScale',
+		    });
+
 		if ( $('.iso-box-wrapper').length > 0 ) { 
 
 		    var $container 	= $('.iso-box-wrapper'), 

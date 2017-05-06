@@ -17,7 +17,7 @@
 	<link rel="stylesheet" href="css/font-awesome.min.css">
 	<link rel="stylesheet" href="css/nivo-lightbox.css">
 	<link rel="stylesheet" href="css/nivo_themes/default/default.css">
-	<link rel="stylesheet" href="css/templatemo-style.css">
+	<link rel="stylesheet" href="css/custom.css">
 	<!--
 	<link href='http://fonts.useso.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.useso.com/css?family=Dosis:400,700' rel='stylesheet' type='text/css'>
@@ -40,7 +40,7 @@
 				<span class="icon icon-bar"></span>
 				<span class="icon icon-bar"></span>
 			</button>
-			<a href="#"><img src="images/logo.png" class="img-responsive site-logo" alt="logo"></a>
+			<a href="#"><img src="images/logo.png" class="img-responsive site-logo"></a>
 		</div>
 		<div class="collapse navbar-collapse">
 			<ul class="nav navbar-nav navbar-right main-navigation">
@@ -60,6 +60,9 @@
 					{{/if}}
 					{{#if price}}
 						<li><a href="#price" class="smoothScroll">{{value price.menu "PRICE"}}</a></li>
+					{{/if}}
+					{{#if client}}
+						<li><a href="#client" class="smoothScroll">{{value client.menu "CLIENT"}}</a></li>
 					{{/if}}
 					{{#if contact}}
 						<li><a href="#contact" class="smoothScroll">{{value contact.menu "CONTACT"}}</a></li>
@@ -144,8 +147,8 @@
 			<div class="row">
 				<div class="col-md-1 col-sm-1"></div>
 				<div class="col-md-5 col-sm-12">
-					<img src="images/about-img1.jpg" class="img-responsive wow fadeIn" data-wow-delay="0.6s" alt="about">
-					<img src="images/about-img2.jpg" class="img-responsive wow fadeInUp" data-wow-delay="0.6s" alt="about">
+					<img src="images/about-img1.jpg" class="img-responsive wow fadeIn" data-wow-delay="0.6s">
+					<img src="images/about-img2.jpg" class="img-responsive wow fadeInUp" data-wow-delay="0.6s">
 				</div>
 				<div class="col-md-5 col-sm-12 about-des wow fadeInRight" data-wow-delay="0.9s">
 					<h1>{{value aboutus.name "Alpha Studio"}}</h1>
@@ -179,37 +182,36 @@
 
 <!-- service section -->
 <section id="service" class="tm-service">
-	<div class="container">
-		<div class="row">
-			<div class="col-md-12 col-sm-12">
-				<h2>Our functions</h2>
-			</div>
-			<div class="col-md-4 col-sm-4 border-right border-bottom">
-				<i class="fa fa-paper-plane wow bounceIn" data-wow-delay="0.3s"></i>
-				<h3 class="tm-service-h3">Research</h3>
-			</div>
-			<div class="col-md-4 col-sm-4 border-right border-bottom">
-				<i class="fa fa-link wow bounceIn" data-wow-delay="0.6s"></i>
-				<h3 class="tm-service-h3">Prototype</h3>
-			</div>
-			<div class="col-md-4 col-sm-4 border-bottom">
-				<i class="fa fa-bell-o wow bounceIn" data-wow-delay="0.9s"></i>
-				<h3 class="tm-service-h3">Design</h3>
-			</div>
-			<div class="col-md-4 col-sm-4 border-right">
-				<i class="fa fa-coffee wow bounceIn" data-wow-delay="1s"></i>
-				<h3 class="tm-service-h3">Coding</h3>
-			</div>
-			<div class="col-md-4 col-sm-4 border-right">
-				<i class="fa fa-recycle wow bounceIn" data-wow-delay="1.3s"></i>
-				<h3 class="tm-service-h3">Launch</h3>
-			</div>
-			<div class="col-md-4 col-sm-4">
-				<i class="fa fa-globe wow bounceIn" data-wow-delay="1.6s"></i>
-				<h3 class="tm-service-h3">Social Media</h3>
+	<script id="service-template" type="text/x-handlebars-template">
+	{{#if service}}
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12 col-sm-12">
+					<h2>{{value service.title "Meet the crew"}}</h2>
+				</div>
+				{{#each service.items}}
+					<div class="col-md-4 col-sm-10 logo">
+					    <div class="service-bar wow fadeInUp" data-wow-delay="{{delay 0.3 @index}}s">
+						    <img src="{{pic}}" class="img-responsive" alt="{{name}}" title="{{name}}">
+						    <div class="service-bar-desc">
+						    	<div class="service-bar-desc-container my-scroll">
+								  	<div class="service-bar-header">
+								  		<h3>{{name}}</h3>
+									  	<p><span>{{note}}</span></p>
+									  	<p><i class="fa fa-chevron-down"></i></p>
+									</div>
+								  	<div class="service-bar-detail">
+								  		{{{intro}}}
+								  	</div>
+							  	</div>	
+						  	</div>
+						</div>
+					</div>
+				{{/each}}
 			</div>
 		</div>
-	</div>
+	{{/if}}
+	</script>
 </section>
 
 <!-- home section -->
@@ -230,7 +232,7 @@
 				<div class="col-md-6 col-sm-10">
 					<div class="media wow fadeInUp" data-wow-delay="{{delay 0.3 @index}}s">
 						<div class="media-object pull-left">
-							<img src="{{pic}}" class="img-responsive" alt="team">
+							<img src="{{pic}}" class="img-responsive">
 						</div>
 						<div class="media-body border-right">
 							<h3 class="media-heading">{{name}}</h3>
@@ -249,56 +251,29 @@
 
 <!-- portfolio section -->
 <section id="portfolio" class="tm-portfolio">
+	<script id="portfolio-template" type="text/x-handlebars-template">
+	{{#if portfolio}}
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12 col-sm-12">
 				<div class="title">
-					<h2>Our Showcase</h2>
+					<h2>{{value portfolio.title "Our Showcase"}}</h2>
 				</div>
 				<!-- ISO section -->
 				<div class="iso-section">
 					<ul class="filter-wrapper clearfix">
-                   		 <li><a href="#" data-filter="*" class="selected opc-main-bg">All</a></li>
-                   		 <li><a href="#" class="opc-main-bg" data-filter=".html">HTML</a></li>
-                   		 <li><a href="#" class="opc-main-bg" data-filter=".photoshop">Photoshop</a></li>
-                    	 <li><a href="#" class="opc-main-bg" data-filter=".wordpress">Wordpress</a></li>
-                    	 <li><a href="#" class="opc-main-bg" data-filter=".mobile">Mobile</a></li>
+                   		 <li><a href="#" data-filter="*" class="selected opc-main-bg">{{value portfolio.all "All"}}</a></li>
+                   		 {{#each portfolio.category}}
+                   		 	<li><a href="javascript:void(0)" class="opc-main-bg" data-filter=".{{name}}">{{label}}</a></li>
+                   		 {{/each}}
                		</ul>
                		<div class="iso-box-section wow fadeIn" data-wow-delay="0.9s">
                			<div class="iso-box-wrapper col4-iso-box">
-
-               				 <div class="iso-box html wordpress mobile col-md-4 col-sm-4">
-               				 	<a href="images/portfolio-img2.jpg" data-lightbox-gallery="portfolio-gallery"><img src="images/portfolio-img2.jpg" alt="portfolio img"></a>
-               				 </div>
-
-               				 <div class="iso-box wordpress col-md-4 col-sm-4">
-               				 	<a href="images/portfolio-img3.jpg" data-lightbox-gallery="portfolio-gallery"><img src="images/portfolio-img3.jpg" alt="portfolio img"></a>
-               				 </div>
-
-               				 <div class="iso-box html mobile col-md-4 col-sm-4">
-               				 	<a href="images/portfolio-img4.jpg" data-lightbox-gallery="portfolio-gallery"><img src="images/portfolio-img4.jpg" alt="portfolio img"></a>
-               				 </div>
-
-               				 <div class="iso-box wordpress col-md-6 col-sm-6">
-               				 	<a href="images/portfolio-img5.jpg" data-lightbox-gallery="portfolio-gallery"><img src="images/portfolio-img5.jpg" alt="portfolio img"></a>
-               				 </div>
-
-               				 <div class="iso-box html photoshop col-md-6 col-sm-6">
-               				 	<a href="images/portfolio-img6.jpg" data-lightbox-gallery="portfolio-gallery"><img src="images/portfolio-img6.jpg" alt="portfolio img"></a>
-               				 </div>
-
-               				 <div class="iso-box photoshop col-md-4 col-sm-4">
-               				 	<a href="images/portfolio-img7.jpg" data-lightbox-gallery="portfolio-gallery"><img src="images/portfolio-img7.jpg" alt="portfolio img"></a>
-               				 </div>
-
-               				 <div class="iso-box photoshop mobile col-md-4 col-sm-4">
-               				 	<a href="images/portfolio-img8.jpg" data-lightbox-gallery="portfolio-gallery"><img src="images/portfolio-img8.jpg" alt="portfolio img"></a>
-               				 </div>
-
-               				 <div class="iso-box photoshop html col-md-4 col-sm-4">
-               				 	<a href="images/portfolio-img9.jpg" data-lightbox-gallery="portfolio-gallery"><img src="images/portfolio-img9.jpg" alt="portfolio img"></a>
-               				 </div>
-
+               				  {{#each portfolio.items}}
+								<div class="iso-box {{#each category}}{{this}} {{/each}} col-md-4 col-sm-4">
+	               				 	<a href="{{pic}}" data-lightbox-gallery="portfolio-gallery"><img src="{{pic}}" alt="{{name}}" title="{{name}}"></a>
+	               				 </div>
+               				  {{/each}}
                			</div>
                		</div>
 
@@ -306,6 +281,8 @@
 			</div>
 		</div>
 	</div>
+	{{/if}}
+	</script>
 </section>		
 
 <!-- price section -->
@@ -329,6 +306,26 @@
 			</div>
 		</div>
 		{{/each}}
+	</div>
+	{{/if}}
+	</script>
+</section>
+
+<!-- client section -->
+<section id="client" class="tm-client">
+	<script id="client-template" type="text/x-handlebars-template">
+	{{#if client}}
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12 col-sm-12">
+				<h2>{{client.title}}</h2>
+			</div>
+			{{#each client.items}}
+				<div class="col-md-3 col-sm-5 logo">
+					<img src="{{logo}}" class="img-responsive wow fadeIn" data-wow-delay="{{delay 0.3 @index}}s" alt="{{name}}" title="{{name}}"/>
+				</div>
+			{{/each}}
+		</div>
 	</div>
 	{{/if}}
 	</script>
