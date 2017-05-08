@@ -357,19 +357,19 @@
 				</div>		
 			</div>	
 			<div class="col-md-8 col-sm-7 contact-form wow fadeInRight" data-wow-delay="0.9s">
-				<form action="#" method="post" role="form">
+				<form action="mail.php" method="post" role="form" id="messageForm">
 					<div class="col-md-6 col-sm-6">
-						<input class="form-control" type="text" placeholder='{{value contact.email.form.name "Your Name"}}'>
+						<input class="form-control" type="text" name="customerName" id="customerName" placeholder='{{value contact.email.form.name "Your Name"}}'>
 					</div>
 					<div class="col-md-6 col-sm-6">
-						<input class="form-control" type="email" placeholder='{{value contact.email.form.email "Your Email"}}'>
+						<input class="form-control" type="email" name="customerEmail" name="customerEmail" id="customerEmail" placeholder='{{value contact.email.form.email "Your Email"}}'>
 					</div>
 					<div class="col-md-12 col-sm-12">
-						<input class="form-control" type="text" placeholder='{{value contact.email.form.subject "Your Subject"}}'>
-						<textarea class="form-control" placeholder='{{value contact.email.form.message "Your Message"}}' rows="6"></textarea>
+						<input class="form-control" type="text" name="messageSubject" id="messageSubject" placeholder='{{value contact.email.form.subject "Your Subject"}}'>
+						<textarea class="form-control" name="messageContent" id="messageContent" placeholder='{{value contact.email.form.message "Your Message"}}' rows="6"></textarea>
 					</div>
 					<div class="col-md-offset-6 col-md-6 col-sm-12">
-						<input class="form-control" type="submit" value='{{value contact.email.form.submitBtn "SHOOT MESSAGE"}}'>
+						<input class="form-control" type="submit" name="sendMessage" id="sendMessage" value='{{value contact.email.form.submitBtn "SHOOT MESSAGE"}}'>
 					</div>
 				</form>
 			</div>

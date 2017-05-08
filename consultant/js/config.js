@@ -266,7 +266,10 @@ var contact = {
 				"email": "Your Email",
 				"subject": "Your Subject",
 				"message": "Your Message",
-				"submitBtn": "SHOOT MESSAGE"
+				"submitBtn": "SHOOT MESSAGE",
+				"successfulMsg": "Ok",
+				"errorMsg": "Error",
+				"invalid": "Invalid"
 			}
 		},
 		"phone": {

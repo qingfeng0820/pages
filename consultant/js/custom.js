@@ -44,6 +44,25 @@ jQuery(document).ready(function($){
 		navInit();
 		serviceInit();
 		imageloadInit();
+
+		$('#messageForm').submit(function(e){
+			if (!$("#customerName").val()) {
+				alert(config.contact.email.form.invalid+": "+config.contact.email.form.name);
+				$("#customerName").focus();
+			} else if (!$("#customerEmail").val()) {
+				alert(config.contact.email.form.invalid+": "+config.contact.email.form.email);
+				$("#customerEmail").focus();
+			} else if (!$("#messageSubject").val()) {
+				alert(config.contact.email.form.invalid+": "+config.contact.email.form.subject);
+				$("#messageSubject").focus();
+			} else if (!$("#messageContent").val()) {
+				alert(config.contact.email.form.invalid+": "+config.contact.email.form.message);
+				$("#messageContent").focus();
+			} else {
+				return true;
+			}
+			return false;
+    	});
 	});
 
 	function navInit() {
