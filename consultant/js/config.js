@@ -270,7 +270,9 @@ var contact = {
 				"successfulMsg": "Ok",
 				"errorMsg": "Error",
 				"requiredMsg": "Required",
-				"emailInvalid": "Invalid email address, should contains '@'"
+				"emailInvalid": "Invalid email address, should contains '@'",
+				"sendSuccess": "Ok",
+				"sendException": "Unknow error" 
 			}
 		},
 		"phone": {
