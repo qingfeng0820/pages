@@ -135,8 +135,14 @@ jQuery(document).ready(function($){
 				$messageContentItem.focus();
 			} else {
 				ajaxSubmit(this, function(data){
+					if (data == "0") {
+						alert(config.contact.email.form.sendSuccess);
+					} else {
+						alert(data);
+					}
 					console.log(data);
 				}, function(data){
+					alert();
 					console.log(data);
 				}); 
 			}

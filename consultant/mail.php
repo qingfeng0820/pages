@@ -1,8 +1,8 @@
 <?php
 
   require 'phpmailer/PHPMailerAutoload.php';
-  if(isset($_POST['sendMessage']))
-      {
+  // if(isset($_POST['sendMessage']))
+  //     {
         $customer_name = $_POST['customerName']; 
         $customer_email = $_POST['customerEmail'];                    
         $message_subject = $_POST['messageSubject'];
@@ -12,8 +12,8 @@
         $email = "xxxx@gmail.com";                    
         $password = "xxxx";
         $to_email = "xxxx@gmail.com";
-        $subject = "Message from customer: " . $message_subject;
-        $message = $message_content . "\n\n\n" . "from " . $customer_name . "[" . $customer_email ."]";
+        $subject = "[Customer Message] " . $message_subject;
+        $message = $message_content . "<br /><br /><br />" . "From " . $customer_name . "[" . $customer_email ."]";
         // config end
 
         $mail = new PHPMailer;
@@ -54,8 +54,8 @@
            // echo '<script>alert("Message sent!");</script>';
             echo 0;
         }
-   } else {
-     echo 1;
-   }
+   // } else {
+   //   echo 1;
+   // }
 ?>
 
