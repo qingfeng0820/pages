@@ -22,21 +22,30 @@ jQuery(document).ready(function($){
 	    }
 	    return delay;
 	});
-
 	var defaultConfigFile = "js/config";
-	var configFile = defaultConfigFile + "11";
-	var il8n = "en";
-	// get lang from cookie
-	// var lang = $.cookie("lang");  
-	// if (lang) {
-	// 	il8n = lang;
-	// }
-	if (il8n != "en") {
-		configFile += il8n;
+	var configFile = defaultConfigFile;
+	var langParam = null;
+	var lang = null;
+	// get query string
+	langParam = getUrlParam("lang");
+	if (langParam) {
+		lang = langParam;
+	} else {
+		// get lang from cookie
+		lang = $.cookie("lang");
 	}
-	addScript(configFile + ".js", init, function() {
+	if (lang != "en") {
+		configFile += "-" + lang;
+	}
+	addScript(configFile, function() {
+			init();	
+			if (langParam && langParam != "en") {
+				$.cookie("lang", langParam, { expires: Number.MAX_VALUE, path: '/' });
+			}
+		}, function() {
 		if (defaultConfigFile != configFile) {
-			addScript(defaultConfigFile + ".js", init);
+			addScript(defaultConfigFile, init);
+			$.cookie("lang", null, { expires: -1, path: '/' });
 		}
 	});
 
@@ -207,7 +216,7 @@ jQuery(document).ready(function($){
 function addScript(scriptPath, callback, errorCallback) {
 	var script = document.createElement("script");
 	script.setAttribute("type", "text/javascript");
-	script.setAttribute("src", scriptPath);
+	script.setAttribute("src", scriptPath + ".js");
 	if (callback && typeof(callback) == "function") {
 		script.onload = callback;
 	}
@@ -223,6 +232,13 @@ function rendTemplate(template) {
 	var template = Handlebars.compile(source);
 	$templateItem.parent().html(template(config));
 }
+
+function getUrlParam(name) {
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+    var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+    if (r != null) return unescape(r[2]); return null; //返回参数值
+}
+
 
 // WOW ANIMATED 
 $(function()
