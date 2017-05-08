@@ -23,13 +23,24 @@ jQuery(document).ready(function($){
 	    return delay;
 	});
 
-	var configFile = "js/config";
+	var defaultConfigFile = "js/config";
+	var configFile = defaultConfigFile + "11";
 	var il8n = "en";
+	// get lang from cookie
+	// var lang = $.cookie("lang");  
+	// if (lang) {
+	// 	il8n = lang;
+	// }
 	if (il8n != "en") {
 		configFile += il8n;
 	}
-	configFile += ".js";
-	addScript(configFile, function() {
+	addScript(configFile + ".js", init, function() {
+		if (defaultConfigFile != configFile) {
+			addScript(defaultConfigFile + ".js", init);
+		}
+	});
+
+	function init() {
 		changeTitle();
 		rendTemplate("home-template");
 		rendTemplate("brief-template");
@@ -44,6 +55,8 @@ jQuery(document).ready(function($){
 		navInit();
 		serviceInit();
 		imageloadInit();
+
+		$.localScroll({filter:'.smoothScroll'});
 
 		$('#messageForm').submit(function(e){
 			if (!$("#customerName").val()) {
@@ -63,7 +76,7 @@ jQuery(document).ready(function($){
 			}
 			return false;
     	});
-	});
+	}
 
 	function navInit() {
 			// MAIN NAVIGATION
@@ -191,12 +204,15 @@ jQuery(document).ready(function($){
 });
 
 // functions
-function addScript(scriptPath, callback) {
+function addScript(scriptPath, callback, errorCallback) {
 	var script = document.createElement("script");
 	script.setAttribute("type", "text/javascript");
 	script.setAttribute("src", scriptPath);
 	if (callback && typeof(callback) == "function") {
 		script.onload = callback;
+	}
+	if (errorCallback && typeof(errorCallback) == "function") {
+		script.onerror = errorCallback;
 	}
 	document.body.appendChild(script);
 }
