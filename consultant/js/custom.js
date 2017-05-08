@@ -134,16 +134,20 @@ jQuery(document).ready(function($){
 				alert(config.contact.email.form.requiredMsg+": "+config.contact.email.form.message);
 				$messageContentItem.focus();
 			} else {
+				var $submitBtn = $("#sendMessage");
+				$submitBtn.attr("disabled","disabled");
 				ajaxSubmit(this, function(data){
-					if (data == "0") {
+					if (data == 0) {
 						alert(config.contact.email.form.sendSuccess);
 					} else {
 						alert(data);
 					}
-					console.log(data);
+
+					$submitBtn.removeAttr("disabled");
 				}, function(data){
-					alert();
+					alert(config.contact.email.form.sendException);
 					console.log(data);
+					$submitBtn.removeAttr("disabled");
 				}); 
 			}
 			return false;
