@@ -269,7 +269,8 @@ var contact = {
 				"submitBtn": "SHOOT MESSAGE",
 				"successfulMsg": "Ok",
 				"errorMsg": "Error",
-				"invalid": "Invalid"
+				"requiredMsg": "Required",
+				"emailInvalid": "Invalid email address, should contains '@'"
 			}
 		},
 		"phone": {

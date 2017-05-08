@@ -1,6 +1,6 @@
 
 // PRELOADER
-	jQuery(window).load(function() {
+jQuery(window).load(function() {
         // will first fade out the loading animation
 	jQuery(".sk-spinner").fadeOut();
         // will fade out the whole DIV that covers the website.
@@ -22,6 +22,7 @@ jQuery(document).ready(function($){
 	    }
 	    return delay;
 	});
+	var defaultLang = "";
 	var defaultConfigFile = "js/config";
 	var configFile = defaultConfigFile;
 	var langParam = null;
@@ -34,20 +35,24 @@ jQuery(document).ready(function($){
 		// get lang from cookie
 		lang = $.cookie("lang");
 	}
-	if (lang != "en") {
+	if (lang && lang != "en") {
 		configFile += "-" + lang;
+	} else if (defaultLang) {
+		configFile += "-" + defaultLang;
 	}
 	addScript(configFile, function() {
 			init();	
-			if (langParam && langParam != "en") {
+			if (langParam) {
 				$.cookie("lang", langParam, { expires: Number.MAX_VALUE, path: '/' });
 			}
 		}, function() {
-		if (defaultConfigFile != configFile) {
+			var useDefaultConfigFile = defaultConfigFile;
+			if (defaultLang) {
+				defaultConfigFile +=  "-" + defaultLang;
+			}
 			addScript(defaultConfigFile, init);
 			$.cookie("lang", null, { expires: -1, path: '/' });
-		}
-	});
+		});
 
 	function init() {
 		changeTitle();
@@ -66,25 +71,107 @@ jQuery(document).ready(function($){
 		imageloadInit();
 
 		$.localScroll({filter:'.smoothScroll'});
+		var $customerNameItem = $("#customerName");
+		var $customerEmailItem = $("#customerEmail");
+		var $messageSubjectItem = $("#messageSubject");
+		var $messageContentItem = $("#messageContent");
+
+		$customerNameItem.attr("oninvalid", "setCustomValidity('" + config.contact.email.form.requiredMsg + "');");
+		$customerEmailItem.attr("oninvalid", "setCustomValidity('" + config.contact.email.form.requiredMsg + "');");
+		$messageSubjectItem.attr("oninvalid", "setCustomValidity('" + config.contact.email.form.requiredMsg + "');");
+		$messageContentItem.attr("oninvalid", "setCustomValidity('" + config.contact.email.form.requiredMsg + "');");
+		$customerNameItem.attr("oninput", "setCustomValidity('');");
+		//$customerEmailItem.attr("oninput", "setCustomValidity('');");
+		$messageSubjectItem.attr("oninput", "setCustomValidity('');");
+		$messageContentItem.attr("oninput", "setCustomValidity('');");
+
+	// var user=document.getElementById("user");
+ //    user.onblur=function(){
+ //        if(user.value){
+ //            user.setCustomValidity("");//现将有输入时的提示设置为空
+ //        }else if(user.validity.valueMissing){
+ //            user.setCustomValidity("用户名不能为空");  
+ //        };
+ //        if(user.validity.patternMismatch){ 
+ //            user.setCustomValidity("用户名只能是英文或数字，长度6到12位");
+ //        }
+ //    };
+
+		var customerEmailItem = document.getElementById("customerEmail");
+		$customerEmailItem.bind('input propertychange',function(){
+			$customerEmailItem.attr("oninvalid", "");
+	        setCustomerEmailItem();
+		});
+		$customerEmailItem.blur(function(){
+	      setCustomerEmailItem();
+		});
+		function setCustomerEmailItem() {
+			if(customerEmailItem.validity.valueMissing) {
+	        	customerEmailItem.setCustomValidity(config.contact.email.form.requiredMsg);
+	        } else if(customerEmailItem.validity.typeMismatch){
+	        	customerEmailItem.setCustomValidity(config.contact.email.form.emailInvalid);
+	        } else {
+				customerEmailItem.setCustomValidity("");
+	        }
+		}
 
 		$('#messageForm').submit(function(e){
-			if (!$("#customerName").val()) {
-				alert(config.contact.email.form.invalid+": "+config.contact.email.form.name);
-				$("#customerName").focus();
-			} else if (!$("#customerEmail").val()) {
-				alert(config.contact.email.form.invalid+": "+config.contact.email.form.email);
-				$("#customerEmail").focus();
-			} else if (!$("#messageSubject").val()) {
-				alert(config.contact.email.form.invalid+": "+config.contact.email.form.subject);
-				$("#messageSubject").focus();
-			} else if (!$("#messageContent").val()) {
-				alert(config.contact.email.form.invalid+": "+config.contact.email.form.message);
-				$("#messageContent").focus();
+			var customerName = $customerNameItem.val();
+			var customerEmail = $customerEmailItem.val();
+			var messageSubject = $messageSubjectItem.val();
+			var messageContent = $messageContentItem.val();
+
+			if (!customerName) {
+				alert(config.contact.email.form.requiredMsg+": "+config.contact.email.form.name);
+				$customerNameItem.focus();
+			} else if (!customerEmail) {
+				alert(config.contact.email.form.requiredMsg+": "+config.contact.email.form.email);
+				$customerEmailItem.focus();
+			} else if (!messageSubject) {
+				alert(config.contact.email.form.requiredMsg+": "+config.contact.email.form.subject);
+				$messageSubjectItem.focus();
+			} else if (!messageContent) {
+				alert(config.contact.email.form.requiredMsg+": "+config.contact.email.form.message);
+				$messageContentItem.focus();
 			} else {
-				return true;
+				ajaxSubmit(this, function(data){
+					console.log(data);
+				}, function(data){
+					console.log(data);
+				}); 
 			}
 			return false;
     	});
+	}
+
+	//将form转为AJAX提交
+	function ajaxSubmit(frm, fn, errfn) {
+	    var dataPara = getFormJson(frm);
+	    $.ajax({
+	        url: frm.action,
+	        type: frm.method,
+	        data: dataPara,
+	        success: fn,
+	        error: errfn
+	    });
+	}
+
+	//将form中的值转换为键值对。
+	function getFormJson(frm) {
+	    var o = {};
+	    var a = $(frm).serializeArray();
+	    $.each(a, function () {
+	        if (o[this.name] !== undefined) {
+	            if (!o[this.name].push) {
+	                o[this.name] = [o[this.name]];
+	            }
+	            o[this.name].push(this.value || '');
+	        } else {
+	            o[this.name] = this.value || '';
+	        }
+	    });
+
+	    return o;
 	}
 
 	function navInit() {
