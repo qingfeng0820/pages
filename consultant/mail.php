@@ -42,17 +42,21 @@
 
         $mail->msgHTML($message);
 
-        if (!$mail->send()) {
-            
-            $error = "Mailer Error: " . $mail->ErrorInfo;
-            /*
-            ?><script>alert('<?php echo $error ?>');</script><?php
-            */
-           echo $error;
-        } 
-        else {
-           // echo '<script>alert("Message sent!");</script>';
-            echo 0;
+        try {
+            if (!$mail->send()) {
+                
+                $error = "Mailer Error: " . $mail->ErrorInfo;
+                /*
+                ?><script>alert('<?php echo $error ?>');</script><?php
+                */
+               echo $error;
+            } 
+            else {
+               // echo '<script>alert("Message sent!");</script>';
+                echo 0;
+            }
+        } catch(Exception $e) {
+            echo $e->getMessage();
         }
    // } else {
    //   echo 1;
